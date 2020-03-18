@@ -30,10 +30,10 @@ class Layer(ABC):
         pass
 
     @abstractmethod
-    def backward(self, grads: Tensor) -> Tensor:
+    def backward(self, grad: Tensor) -> Tensor:
         """
         Update the layers gradients and propagate them backwards.
-        :param grads: Next layer's gradients being passed in
+        :param grad: Next layer's gradients being passed in
         :return: New gradients after applying this layer's gradients
         """
         pass
@@ -88,12 +88,12 @@ class ActivationLayer(Layer):
         self.inputs = inputs
         return self.f(inputs)
 
-    def backward(self, grads: Tensor) -> Tensor:
+    def backward(self, grad: Tensor) -> Tensor:
         """
         if y = f(x) and x = g(z)
         then dy/dz = f'(x) * g'(z)
         """
-        return self.f_prime(self.inputs) * grads
+        return self.f_prime(self.inputs) * grad
 
 
 def tanh(x: Tensor) -> Tensor:
