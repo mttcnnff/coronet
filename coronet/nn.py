@@ -1,4 +1,4 @@
-from typing import Sequence, Generator, Tuple
+from typing import Sequence, Iterator, Tuple
 
 from .tensor import Tensor
 from .layers import Layer
@@ -18,7 +18,7 @@ class NeuralNet:
             grad = layer.backward(grad)
         return grad
 
-    def params_and_grads(self) -> Generator[Tuple[Tensor, Tensor]]:
+    def params_and_grads(self) -> Iterator[Tuple[Tensor, Tensor]]:
         for layer in self.layers:
             for name, param in layer.params.items():
                 grad = layer.grads[name]

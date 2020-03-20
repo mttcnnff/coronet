@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import NamedTuple, Generator
+from typing import NamedTuple, Iterator
 
 import numpy as np
 
@@ -10,7 +10,7 @@ Batch = NamedTuple("Batch", [("inputs", Tensor), ("targets", Tensor)])
 
 class DataIterator(ABC):
     @abstractmethod
-    def __call__(self, inputs: Tensor, targets: Tensor) -> Generator[Batch]:
+    def __call__(self, inputs: Tensor, targets: Tensor) -> Iterator[Batch]:
         pass
 
 
@@ -19,7 +19,7 @@ class BatchIterator(DataIterator):
         self.batch_size = batch_size
         self.shuffle = shuffle
 
-    def __call__(self, inputs: Tensor, targets: Tensor) -> Generator[Batch]:
+    def __call__(self, inputs: Tensor, targets: Tensor) -> Iterator[Batch]:
         assert len(inputs) == len(targets)
 
         starts = np.arange(0, len(inputs), self.batch_size)
