@@ -16,7 +16,7 @@ class Loss(ABC):
         pass
 
     @abstractmethod
-    def grad(self, predicated: Tensor, expected: Tensor) -> Tensor:
+    def grad(self, predicted: Tensor, expected: Tensor) -> Tensor:
         pass
 
 
@@ -30,4 +30,4 @@ class MSE(Loss):
         return np.sum((predicted - expected) ** 2) / len(predicted)
 
     def grad(self, predicted: Tensor, expected: Tensor) -> Tensor:
-        return (2 / len(predicted)) * np.sum(predicted - expected)
+        return (2 / len(predicted)) * (predicted - expected)
