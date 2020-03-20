@@ -25,6 +25,7 @@ class MSE(Loss):
     MSE (Mean Squared Error) is the average squared difference
     between the predicted and expected output values
     """
+
     def loss(self, predicted: Tensor, expected: Tensor) -> float:
         return np.sum((predicted - expected) ** 2) / len(predicted)
 

@@ -15,6 +15,7 @@ class Layer(ABC):
 
     On a backward pass the layer propagates the gradients backward.
     """
+
     def __init__(self) -> None:
         self.inputs: Optional[Tensor] = None
         self.params: Dict[str, Tensor] = {}
@@ -44,6 +45,7 @@ class LinearLayer(Layer):
     A linear layer takes inputs and applies a linear function to them:
     outputs = inputs @ weights + bias (Forward)
     """
+
     def __init__(self, input_size: int, output_size: int) -> None:
         super(LinearLayer, self).__init__()
         self.params["w"] = np.random.randn(input_size, output_size)
@@ -79,7 +81,10 @@ class ActivationLayer(Layer):
     An activation layer just takes an input tensor and applies a function to it element-wise
     Useful link on different activations: http://cs231n.github.io/neural-networks-1/
     """
-    def __init__(self, f: Callable[[Tensor], Tensor], f_prime: Callable[[Tensor], Tensor]):
+
+    def __init__(
+        self, f: Callable[[Tensor], Tensor], f_prime: Callable[[Tensor], Tensor]
+    ):
         super(ActivationLayer, self).__init__()
         self.f = f
         self.f_prime = f_prime
@@ -121,4 +126,3 @@ def relu_prime(x: Tensor) -> Tensor:
 class ReLU(ActivationLayer):
     def __init__(self):
         super().__init__(relu, relu_prime)
-
